@@ -1,0 +1,20 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tiến độ</title><link rel="stylesheet" href="/css/style.css"></head><body><aside class="sidebar">
+<div class="brand"><div class="brand-icon">📖</div><span>Học Tiếng Anh Online</span></div>
+<nav class="nav">
+<a href="/dashboard.html"><span class="nav-icon">🏠</span>Dashboard</a>
+<a href="/lessons.html"><span class="nav-icon">📚</span>Bài học</a>
+<a href="/vocabulary.html"><span class="nav-icon">Aa</span>Từ vựng & Ngữ pháp</a>
+<a href="/quiz.html"><span class="nav-icon">✅</span>Kiểm tra</a>
+<a href="/progress.html"><span class="nav-icon">📊</span>Tiến độ học tập</a>
+<div class="nav-title">QUẢN TRỊ</div>
+<a href="/admin.html"><span class="nav-icon">⚙️</span>Trang quản trị</a>
+<a href="#" onclick="logout()"><span class="nav-icon">↪</span>Đăng xuất</a>
+</nav></aside><main class="main"><header class="topbar">
+<input class="search" placeholder="🔍  Tìm kiếm bài học, chủ đề, từ vựng...">
+<div class="profile"><span>🔔</span><div class="avatar">👨🏻</div><div><strong data-user-name>Người học</strong><div class="muted small">Học viên</div></div></div>
+</header><div class="container">
+<section class="hero"><div><h1>Theo dõi tiến độ học tập</h1><p>Xem tổng quan tiến độ, kết quả và thành tích của bạn trên hành trình chinh phục tiếng Anh.</p></div><img src="/assets/banner-progress.jpg"></section>
+<section class="grid4"><div class="card metric"><div class="metric-icon blue">📘</div><div><div class="muted small">Tổng bài học</div><div class="value" id="total">0</div></div></div><div class="card metric"><div class="metric-icon green">✅</div><div><div class="muted small">Đã hoàn thành</div><div class="value" id="done">0</div></div></div><div class="card metric"><div class="metric-icon orange">🏆</div><div><div class="muted small">Điểm trung bình</div><div class="value" id="average">0</div></div></div><div class="card metric"><div class="metric-icon purple">◔</div><div><div class="muted small">Tỷ lệ hoàn thành</div><div class="value" id="percent">0%</div></div></div></section>
+<div class="two-col section"><section class="card"><h2>Tiến độ tổng thể</h2><div class="progress" style="height:15px"><span id="bigbar" style="width:0"></span></div><p id="doneText" class="muted"></p></section><section class="card"><h2>Tiến độ học theo tuần</h2><div class="chart-bars"><span style="height:35%"></span><span style="height:65%"></span><span style="height:50%"></span><span style="height:82%"></span><span style="height:45%"></span><span style="height:68%"></span></div></section></div>
+<section class="card section"><h2>Kết quả bài kiểm tra gần đây</h2><table><thead><tr><th>Bài học</th><th>Điểm</th><th>Đúng</th><th>Sai</th><th>Ngày</th></tr></thead><tbody id="rows"></tbody></table></section>
+</div></main><script src="/js/app.js"></script><script>if(requireAuth()){api("/progress",{headers:authHeaders()}).then(d=>{total.textContent=d.summary.totalLessons;done.textContent=d.summary.completedLessons;average.textContent=d.summary.averageScore;percent.textContent=d.summary.completionRate+"%";bigbar.style.width=d.summary.completionRate+"%";doneText.textContent=`Đã hoàn thành ${d.summary.completedLessons}/${d.summary.totalLessons} bài học`;rows.innerHTML=d.recent.map(x=>`<tr><td>${x.title}</td><td><b style="color:#219d59">${x.score}</b></td><td>${x.correct_count}</td><td>${x.wrong_count}</td><td>${new Date(x.completed_at).toLocaleDateString("vi-VN")}</td></tr>`).join("")})}</script></body></html>

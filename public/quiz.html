@@ -1,0 +1,18 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kiểm tra</title><link rel="stylesheet" href="/css/style.css"></head><body><aside class="sidebar">
+<div class="brand"><div class="brand-icon">📖</div><span>Học Tiếng Anh Online</span></div>
+<nav class="nav">
+<a href="/dashboard.html"><span class="nav-icon">🏠</span>Dashboard</a>
+<a href="/lessons.html"><span class="nav-icon">📚</span>Bài học</a>
+<a href="/vocabulary.html"><span class="nav-icon">Aa</span>Từ vựng & Ngữ pháp</a>
+<a href="/quiz.html"><span class="nav-icon">✅</span>Kiểm tra</a>
+<a href="/progress.html"><span class="nav-icon">📊</span>Tiến độ học tập</a>
+<div class="nav-title">QUẢN TRỊ</div>
+<a href="/admin.html"><span class="nav-icon">⚙️</span>Trang quản trị</a>
+<a href="#" onclick="logout()"><span class="nav-icon">↪</span>Đăng xuất</a>
+</nav></aside><main class="main"><header class="topbar">
+<input class="search" placeholder="🔍  Tìm kiếm bài học, chủ đề, từ vựng...">
+<div class="profile"><span>🔔</span><div class="avatar">👨🏻</div><div><strong data-user-name>Người học</strong><div class="muted small">Học viên</div></div></div>
+</header><div class="container">
+<div class="quiz-top"><div class="quiz-icon">📋</div><div><h1 style="margin:0">Làm bài kiểm tra</h1><h2 style="margin:5px 0">English Practice</h2><p class="muted">Kiểm tra kiến thức từ vựng và ngữ pháp.</p></div><div class="quiz-stats"><div class="mini"><span class="muted">⏱ Thời gian</span><h2 style="color:#246ed4">14:35</h2></div><div class="mini"><span class="muted">📄 Số câu</span><h2 id="countQ">0 câu</h2></div><div class="mini"><span class="muted">🏆 Điểm tối đa</span><h2 style="color:#e88d17">10 điểm</h2></div></div></div>
+<div class="two-col"><section><div id="quiz"></div><div class="card" style="display:flex;justify-content:space-between"><button class="btn btn-light">← Câu trước</button><button id="submitBtn" class="btn btn-primary">Nộp bài</button></div><div id="result" class="card section" style="display:none"></div></section><aside><div class="card"><h2>Danh sách câu hỏi</h2><div class="qgrid" id="qgrid"></div></div><div class="card section"><h3>Thông tin bài kiểm tra</h3><p>📘 Chủ đề: Tiếng Anh cơ bản</p><p>📄 Số câu: <span id="infoCount">0</span></p><p>⏱ Thời gian: 15 phút</p><p>🏆 Điểm tối đa: 10</p></div></aside></div>
+</div></main><script src="/js/app.js"></script><script>const lessonId=new URLSearchParams(location.search).get("lesson")||1;let qs=[];if(requireAuth()){api("/quiz/"+lessonId,{headers:authHeaders()}).then(rows=>{qs=rows;countQ.textContent=rows.length+" câu";infoCount.textContent=rows.length;qgrid.innerHTML=rows.map((q,i)=>`<div class="qnum ${i===0?"current":""}">${i+1}</div>`).join("");quiz.innerHTML=rows.map((q,i)=>`<section class="card question" style="margin-bottom:15px"><div class="muted"><b>Câu ${i+1} / ${rows.length}</b> &nbsp; <span class="tag">Chọn đáp án đúng</span></div><h2>${q.question_text}</h2>${["A","B","C","D"].map(k=>`<label class="option"><input type="radio" name="q${q.id}" value="${k}"><span class="option-letter">${k}</span><span>${q["option_"+k.toLowerCase()]}</span></label>`).join("")}</section>`).join("")})}submitBtn.onclick=async()=>{const answers={};qs.forEach(q=>{const x=document.querySelector(`input[name=q${q.id}]:checked`);if(x)answers[q.id]=x.value});try{const d=await api("/quiz/"+lessonId+"/submit",{method:"POST",headers:authHeaders(),body:JSON.stringify({answers})});result.style.display="block";result.innerHTML=`<h2>🎉 Kết quả: ${d.score}/10</h2><p>Đúng: <b>${d.correct}</b>/${d.total} câu • Sai: <b>${d.wrong}</b> câu</p>`}catch(e){alert(e.message)}}</script></body></html>

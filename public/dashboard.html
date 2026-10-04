@@ -1,0 +1,20 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dashboard</title><link rel="stylesheet" href="/css/style.css"></head>
+<body><aside class="sidebar">
+<div class="brand"><div class="brand-icon">📖</div><span>Học Tiếng Anh Online</span></div>
+<nav class="nav">
+<a href="/dashboard.html"><span class="nav-icon">🏠</span>Dashboard</a>
+<a href="/lessons.html"><span class="nav-icon">📚</span>Bài học</a>
+<a href="/vocabulary.html"><span class="nav-icon">Aa</span>Từ vựng & Ngữ pháp</a>
+<a href="/quiz.html"><span class="nav-icon">✅</span>Kiểm tra</a>
+<a href="/progress.html"><span class="nav-icon">📊</span>Tiến độ học tập</a>
+<div class="nav-title">QUẢN TRỊ</div>
+<a href="/admin.html"><span class="nav-icon">⚙️</span>Trang quản trị</a>
+<a href="#" onclick="logout()"><span class="nav-icon">↪</span>Đăng xuất</a>
+</nav></aside><main class="main"><header class="topbar">
+<input class="search" placeholder="🔍  Tìm kiếm bài học, chủ đề, từ vựng...">
+<div class="profile"><span>🔔</span><div class="avatar">👨🏻</div><div><strong data-user-name>Người học</strong><div class="muted small">Học viên</div></div></div>
+</header><div class="container">
+<section class="hero"><div><div class="muted">Xin chào 👋</div><h1>Chào mừng trở lại,<br><span data-user-name>Người học</span>!</h1><p>Hãy tiếp tục hành trình chinh phục tiếng Anh và duy trì thói quen học tập mỗi ngày.</p><a class="btn btn-primary" href="/lessons.html">▶ Tiếp tục học</a></div><img src="/assets/banner-dashboard.jpg"></section>
+<section class="grid4"><div class="card metric"><div class="metric-icon blue">📘</div><div><div class="muted small">Bài đã hoàn thành</div><div class="value" id="completed">0</div></div></div><div class="card metric"><div class="metric-icon green">✅</div><div><div class="muted small">Bài kiểm tra</div><div class="value" id="tests">0</div></div></div><div class="card metric"><div class="metric-icon orange">🏆</div><div><div class="muted small">Điểm trung bình</div><div class="value" id="avg">0</div></div></div><div class="card metric"><div class="metric-icon purple">📈</div><div><div class="muted small">Tỷ lệ hoàn thành</div><div class="value" id="rate">0%</div></div></div></section>
+<div class="two-col section"><section class="card"><div class="section-head"><h2>Tiến độ học tập</h2><span class="muted">Tổng quan khóa học</span></div><div id="progressText" class="muted"></div><div class="progress" style="height:13px;margin-top:14px"><span id="bar" style="width:0"></span></div></section><section class="card"><h2>Mục tiêu hôm nay</h2><p>📚 Hoàn thành 1 bài học</p><p>🎯 Làm 1 bài kiểm tra</p><a class="btn btn-primary" href="/lessons.html">Bắt đầu học</a></section></div>
+</div></main><script src="/js/app.js"></script><script>if(requireAuth()){api("/progress",{headers:authHeaders()}).then(d=>{completed.textContent=d.summary.completedLessons;tests.textContent=d.recent.length;avg.textContent=d.summary.averageScore;rate.textContent=d.summary.completionRate+"%";bar.style.width=d.summary.completionRate+"%";progressText.textContent=`Đã hoàn thành ${d.summary.completedLessons}/${d.summary.totalLessons} bài học`;})}</script></body></html>

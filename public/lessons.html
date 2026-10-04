@@ -1,0 +1,18 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Danh sách bài học</title><link rel="stylesheet" href="/css/style.css"></head><body><aside class="sidebar">
+<div class="brand"><div class="brand-icon">📖</div><span>Học Tiếng Anh Online</span></div>
+<nav class="nav">
+<a href="/dashboard.html"><span class="nav-icon">🏠</span>Dashboard</a>
+<a href="/lessons.html"><span class="nav-icon">📚</span>Bài học</a>
+<a href="/vocabulary.html"><span class="nav-icon">Aa</span>Từ vựng & Ngữ pháp</a>
+<a href="/quiz.html"><span class="nav-icon">✅</span>Kiểm tra</a>
+<a href="/progress.html"><span class="nav-icon">📊</span>Tiến độ học tập</a>
+<div class="nav-title">QUẢN TRỊ</div>
+<a href="/admin.html"><span class="nav-icon">⚙️</span>Trang quản trị</a>
+<a href="#" onclick="logout()"><span class="nav-icon">↪</span>Đăng xuất</a>
+</nav></aside><main class="main"><header class="topbar">
+<input class="search" placeholder="🔍  Tìm kiếm bài học, chủ đề, từ vựng...">
+<div class="profile"><span>🔔</span><div class="avatar">👨🏻</div><div><strong data-user-name>Người học</strong><div class="muted small">Học viên</div></div></div>
+</header><div class="container">
+<section class="hero"><div><h1>Danh sách bài học</h1><p>Lựa chọn chủ đề mà bạn muốn học và bắt đầu hành trình chinh phục tiếng Anh!</p></div><img src="/assets/banner-lessons.jpg"></section>
+<div class="tabs"><button class="tab active">Tất cả</button><button class="tab">Chào hỏi</button><button class="tab">Gia đình</button><button class="tab">Trường học</button><button class="tab">Thức ăn</button><button class="tab">Du lịch</button></div><div id="list" class="grid3"></div></div></main>
+<script src="/js/app.js"></script><script>const icons=["👋","👨‍👩‍👧","🏫","🍔","✈️","💼","❤️","🛍️","🎧"];if(requireAuth()){api("/lessons",{headers:authHeaders()}).then(rows=>{list.innerHTML=rows.map((x,i)=>`<article class="card lesson-card"><div class="cover">${icons[i%icons.length]}</div><span class="tag">${x.topic_name}</span><h3>${x.title}</h3><p class="muted">${x.description||""}</p><div class="lesson-info"><span>⏱ ${x.duration_minutes} phút</span><span>🎯 ${x.level}</span></div><div class="lesson-actions"><div class="progress"><span style="width:${x.progress}%"></span></div><b>${x.progress}%</b><a class="btn btn-primary" href="/vocabulary.html?lesson=${x.id}">${x.progress>0?"Tiếp tục":"Bắt đầu"}</a></div></article>`).join("")})}</script></body></html>

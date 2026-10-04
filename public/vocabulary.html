@@ -1,0 +1,20 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Từ vựng và ngữ pháp</title><link rel="stylesheet" href="/css/style.css"></head><body><aside class="sidebar">
+<div class="brand"><div class="brand-icon">📖</div><span>Học Tiếng Anh Online</span></div>
+<nav class="nav">
+<a href="/dashboard.html"><span class="nav-icon">🏠</span>Dashboard</a>
+<a href="/lessons.html"><span class="nav-icon">📚</span>Bài học</a>
+<a href="/vocabulary.html"><span class="nav-icon">Aa</span>Từ vựng & Ngữ pháp</a>
+<a href="/quiz.html"><span class="nav-icon">✅</span>Kiểm tra</a>
+<a href="/progress.html"><span class="nav-icon">📊</span>Tiến độ học tập</a>
+<div class="nav-title">QUẢN TRỊ</div>
+<a href="/admin.html"><span class="nav-icon">⚙️</span>Trang quản trị</a>
+<a href="#" onclick="logout()"><span class="nav-icon">↪</span>Đăng xuất</a>
+</nav></aside><main class="main"><header class="topbar">
+<input class="search" placeholder="🔍  Tìm kiếm bài học, chủ đề, từ vựng...">
+<div class="profile"><span>🔔</span><div class="avatar">👨🏻</div><div><strong data-user-name>Người học</strong><div class="muted small">Học viên</div></div></div>
+</header><div class="container">
+<section class="hero"><div><h1>Từ vựng và ngữ pháp</h1><p>Học từ vựng và ngữ pháp tiếng Anh một cách hiệu quả, khoa học và thú vị!</p></div><img src="/assets/banner-study.jpg"></section>
+<div class="tabs"><button class="tab active" onclick="showType('vocabulary',this)">📘 Từ vựng</button><button class="tab" onclick="showType('grammar',this)">📄 Ngữ pháp</button></div>
+<div class="word-wrap"><div><section class="card"><div class="section-head"><h2>⭐ Nội dung nổi bật</h2></div><div id="feature"></div></section><section class="card section"><div class="section-head"><h2>📚 Danh sách nội dung</h2></div><div id="content"></div></section></div>
+<section><div class="card"><h2>Ngữ pháp nổi bật</h2><div class="info info-blue"><b>⚙ Cấu trúc</b><p>S + V(s/es) + O</p></div><div class="info info-green"><b>🎯 Cách dùng</b><p>Diễn tả thói quen, sự thật và lịch trình.</p></div><div class="info info-yellow"><b>📖 Ví dụ</b><p>I go to school every day.</p></div><div class="info info-red"><b>⚠ Lưu ý</b><p>Thêm s/es với ngôi thứ ba số ít.</p></div></div><div class="card section" style="text-align:center"><h3>✏ Luyện tập ngay</h3><p class="muted">Làm bài tập để củng cố kiến thức.</p><a id="quizLink" class="btn btn-primary">Bắt đầu luyện tập</a></div></section></div>
+</div></main><script src="/js/app.js"></script><script>let all=[];const lessonId=new URLSearchParams(location.search).get("lesson")||1;quizLink.href="/quiz.html?lesson="+lessonId;function showType(type,btn){document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));btn.classList.add("active");const rows=all.filter(x=>x.content_type===type);if(type==="vocabulary"&&rows[0]){feature.innerHTML=`<div class="word-feature"><div class="word-pic">👩‍🏫</div><div><div class="word-title">${rows[0].term||"teacher"}</div><div class="muted">${rows[0].pronunciation||""} <span class="pill">${rows[0].part_of_speech||"từ vựng"}</span></div><h3>${rows[0].meaning||""}</h3><div class="example">${rows[0].example_en||""}<br><span class="muted">${rows[0].example_vi||""}</span></div></div></div>`}else{feature.innerHTML=`<div><h3>${rows[0]?.grammar_structure||"Ngữ pháp cơ bản"}</h3><p>${rows[0]?.usage_note||"Nội dung ngữ pháp của bài học."}</p></div>`}content.innerHTML=rows.map(x=>`<div style="padding:12px 0;border-bottom:1px solid #edf1f6"><b style="color:#1f6bd0">${x.term||x.grammar_structure||"Nội dung"}</b><div>${x.meaning||x.usage_note||""}</div><div class="muted small">${x.example_en||""}</div></div>`).join("")||'<p class="muted">Chưa có nội dung.</p>'}if(requireAuth()){api("/lessons/"+lessonId,{headers:authHeaders()}).then(d=>{all=d.contents;showType("vocabulary",document.querySelector(".tab"))})}</script></body></html>

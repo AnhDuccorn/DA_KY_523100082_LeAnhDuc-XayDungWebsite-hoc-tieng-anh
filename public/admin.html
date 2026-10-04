@@ -1,0 +1,21 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Quản trị</title><link rel="stylesheet" href="/css/style.css"></head><body><aside class="sidebar">
+<div class="brand"><div class="brand-icon">📖</div><span>Học Tiếng Anh Online</span></div>
+<nav class="nav">
+<a href="/dashboard.html"><span class="nav-icon">🏠</span>Dashboard</a>
+<a href="/lessons.html"><span class="nav-icon">📚</span>Bài học</a>
+<a href="/vocabulary.html"><span class="nav-icon">Aa</span>Từ vựng & Ngữ pháp</a>
+<a href="/quiz.html"><span class="nav-icon">✅</span>Kiểm tra</a>
+<a href="/progress.html"><span class="nav-icon">📊</span>Tiến độ học tập</a>
+<div class="nav-title">QUẢN TRỊ</div>
+<a href="/admin.html"><span class="nav-icon">⚙️</span>Trang quản trị</a>
+<a href="#" onclick="logout()"><span class="nav-icon">↪</span>Đăng xuất</a>
+</nav></aside><main class="main"><header class="topbar">
+<input class="search" placeholder="🔍  Tìm kiếm bài học, chủ đề, từ vựng...">
+<div class="profile"><span>🔔</span><div class="avatar">👨🏻</div><div><strong data-user-name>Người học</strong><div class="muted small">Học viên</div></div></div>
+</header><div class="container">
+<section class="hero"><div><h1>Dashboard quản trị</h1><p>Quản lý người dùng, bài học, câu hỏi và theo dõi hoạt động của hệ thống.</p></div><img src="/assets/banner-admin.jpg"></section>
+<section class="grid4"><div class="card metric"><div class="metric-icon blue">👥</div><div><div class="muted small">Tổng người dùng</div><div class="value" id="users">0</div></div></div><div class="card metric"><div class="metric-icon green">📘</div><div><div class="muted small">Tổng bài học</div><div class="value" id="lessons">0</div></div></div><div class="card metric"><div class="metric-icon orange">📄</div><div><div class="muted small">Tổng câu hỏi</div><div class="value" id="questions">0</div></div></div><div class="card metric"><div class="metric-icon purple">📊</div><div><div class="muted small">Lượt làm bài</div><div class="value" id="attempts">0</div></div></div></section>
+<div class="two-col section"><section class="card"><div class="section-head"><h2>Người dùng mới nhất</h2><span style="color:#2d74df">Xem tất cả</span></div><table><thead><tr><th>Họ tên</th><th>Email</th><th>Vai trò</th><th>Trạng thái</th></tr></thead><tbody id="userRows"></tbody></table></section>
+<section class="card"><h2>Thêm bài học</h2><input class="input" id="topicId" type="number" value="1" placeholder="Mã chủ đề"><input class="input" id="title" placeholder="Tên bài học"><input class="input" id="description" placeholder="Mô tả"><input class="input" id="level" value="Cơ bản"><input class="input" id="duration" type="number" value="15"><button class="btn btn-primary" onclick="addLesson()">+ Thêm bài học</button><p id="msg" class="muted"></p></section></div>
+<div class="two-col section"><section class="card"><h2>Lượt học tập theo ngày</h2><div class="chart-bars"><span style="height:42%"></span><span style="height:58%"></span><span style="height:55%"></span><span style="height:82%"></span><span style="height:68%"></span><span style="height:84%"></span></div></section><section class="card"><h2>Tỷ lệ nội dung</h2><p>🔵 Từ vựng 35%</p><p>🟢 Ngữ pháp 25%</p><p>🟠 Bài tập 20%</p><p>🟣 Kiểm tra 15%</p></section></div>
+</div></main><script src="/js/app.js"></script><script>if(requireAuth("admin")){api("/admin/summary",{headers:authHeaders()}).then(d=>{users.textContent=d.users;lessons.textContent=d.lessons;questions.textContent=d.questions;attempts.textContent=d.attempts});api("/admin/users",{headers:authHeaders()}).then(d=>userRows.innerHTML=d.map(x=>`<tr><td>${x.full_name}</td><td>${x.email}</td><td>${x.role}</td><td><span class="status">${x.status}</span></td></tr>`).join(""))}async function addLesson(){try{const d=await api("/admin/lessons",{method:"POST",headers:authHeaders(),body:JSON.stringify({topicId:topicId.value,title:title.value,description:description.value,level:level.value,durationMinutes:duration.value})});msg.textContent=d.message}catch(e){msg.textContent=e.message}}</script></body></html>
