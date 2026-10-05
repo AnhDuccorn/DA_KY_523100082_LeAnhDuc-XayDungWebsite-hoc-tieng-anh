@@ -1,37 +1,69 @@
-# WEBSITE HỌC TIẾNG ANH
+# ĐỒ ÁN KỲ - XÂY DỰNG WEBSITE HỌC TIẾNG ANH
 
-## Công nghệ
-- Frontend: HTML, CSS, JavaScript
-- Backend: Node.js + Express.js
-- Database: MySQL
-- Authentication: JWT + bcrypt
+## 1. Thông tin sinh viên
 
-## Quy trình chạy
-1. Cài Node.js, XAMPP/MySQL, Visual Studio Code.
-2. Bật MySQL.
-3. Import `database/english_learning.sql`.
-4. Copy `.env.example` thành `.env`.
-5. Mở Terminal:
-   npm install
-6. Tạo admin:
-   node database/create-admin.js
-7. Chạy website:
-   npm start
-8. Mở:
-   http://localhost:3000
+- Họ và tên: Lê Anh Đức
+- MSSV: 523100082
+- Lớp: 523100B
+- GVHD: Trần Thị Hiền
 
-## Tài khoản demo admin
-- Username: admin
-- Password: admin123
+---
 
-## Quy trình phát triển đề tài
-1. Phân tích yêu cầu: người học + quản trị viên.
-2. Thiết kế CSDL.
-3. Làm đăng ký/đăng nhập.
-4. Làm Dashboard.
-5. Làm danh sách bài học.
-6. Làm từ vựng/ngữ pháp.
-7. Làm bài kiểm tra và chấm điểm.
-8. Lưu kết quả + tiến độ.
-9. Làm trang quản trị.
-10. Kiểm thử theo các Test Case của Chương 3.
+## 2. Mục tiêu đề tài
+
+Đề tài "Xây dựng Website học tiếng Anh" được thực hiện nhằm xây dựng một hệ thống hỗ trợ người học tự học tiếng Anh trên nền tảng Web.
+
+Website cho phép người học đăng ký tài khoản, đăng nhập, lựa chọn bài học, học từ vựng, học ngữ pháp, làm bài tập trắc nghiệm, xem kết quả và theo dõi tiến độ học tập.
+
+Bên cạnh đó, hệ thống còn cung cấp chức năng dành cho quản trị viên để quản lý người dùng, chủ đề, bài học, nội dung học tập và câu hỏi.
+
+---
+
+## 3. Chức năng cốt lõi
+
+### 3.1. Chức năng dành cho người học
+
+- Đăng ký tài khoản.
+- Đăng nhập hệ thống.
+- Xem danh sách chủ đề và bài học.
+- Học từ vựng theo bài học.
+- Học ngữ pháp.
+- Làm bài tập trắc nghiệm.
+- Chấm điểm tự động.
+- Xem kết quả bài làm.
+- Theo dõi tiến độ học tập.
+
+### 3.2. Chức năng dành cho quản trị viên
+
+- Đăng nhập trang quản trị.
+- Quản lý người dùng.
+- Quản lý chủ đề.
+- Quản lý bài học.
+- Quản lý nội dung từ vựng và ngữ pháp.
+- Quản lý câu hỏi và đáp án.
+- Theo dõi dữ liệu của hệ thống.
+
+---
+
+## 4. Công nghệ sử dụng
+
+- Front-end:
+  - HTML
+  - CSS
+  - JavaScript
+  - Bootstrap
+
+- Back-end:
+  - Node.js
+  - Express.js
+
+- Database:
+  - MySQL
+
+- Công cụ:
+  - Visual Studio Code
+  - XAMPP
+  - phpMyAdmin
+  - Git
+  - GitHub
+
